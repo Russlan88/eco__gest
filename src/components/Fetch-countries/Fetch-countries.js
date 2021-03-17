@@ -15,7 +15,11 @@ const FetchCountries = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("https://restcountries.eu/rest/v2/all")
+            .get("https://zmag.azurewebsites.net/api/Products/GetAllFake", {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
             .then((res) => {
                 setCountries(res.data);
                 setLoading(false);
@@ -24,6 +28,8 @@ const FetchCountries = () => {
                 console.log(err);
             });
     }, []);
+
+    delete axios.defaults.headers.common["Authorization"];
 
     useEffect(() => {
         setFilteredCountries(
@@ -38,6 +44,8 @@ const FetchCountries = () => {
             <Loader />
         );
     }
+
+    console.log(countries)
 
     const columns = [{
         dataField: "id",
