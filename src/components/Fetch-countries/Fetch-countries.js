@@ -4,10 +4,11 @@ import axios from "axios";
 import Loader from '../Loader/Preloader';
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 
 const FetchCountries = () => {
-    const [countries, setCountries] = useState([]);
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
     const [filteredCountries, setFilteredCountries] = useState([]);
@@ -15,9 +16,13 @@ const FetchCountries = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("https://restcountries.eu/rest/v2/all")
+            .get("https://zmag.azurewebsites.net/api/products/getallfake", {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
             .then((res) => {
-                setCountries(res.data);
+                setProducts(res.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -25,13 +30,13 @@ const FetchCountries = () => {
             });
     }, []);
 
-    useEffect(() => {
-        setFilteredCountries(
-            countries.filter((country) =>
-                country.name.toLowerCase().includes(search.toLowerCase())
-            )
-        );
-    }, [search, countries]);
+    // useEffect(() => {
+    //     setFilteredCountries(
+    //         countries.filter((country) =>
+    //             country.name.toLowerCase().includes(search.toLowerCase())
+    //         )
+    //     );
+    // }, [search, countries]);
 
     if (loading) {
         return (
@@ -39,20 +44,20 @@ const FetchCountries = () => {
         );
     }
 
-    const columns = [{
-        dataField: "id",
-        text: "ID"
-    },
-    {
-        dataField: 'name',
-        text: 'Product Names'
-    }, {
-        dataField: 'alpha3Code',
-        text: 'Product init'
-    }];
+    console.log(products)
+
+
+    const columns = [
+        {
+            dataField: 'ar_codart',
+            text: 'Product Names'
+        }, {
+            dataField: 'ar_descr',
+            text: 'Product init'
+        }];
 
     return (
-        <BootstrapTable keyField="alpha3Code" data={countries} columns={columns} cellEdit={cellEditFactory({ mode: 'click' })} />
+        <BootstrapTable keyField="ar_codart" data={products} columns={columns} cellEdit={cellEditFactory({ mode: 'click' })} pagination={paginationFactory()} />
     );
 }
 
