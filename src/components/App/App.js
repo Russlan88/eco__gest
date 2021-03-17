@@ -1,10 +1,10 @@
-import { GlobalStyle } from '../../utilities';
+import React from 'react';
 import FetchCountries from '../Fetch-countries/Fetch-countries';
 
-function App() {
+
+const App = () => {
   return (
     <div className="app">
-      <GlobalStyle />
       <FetchCountries />
     </div>
   );
