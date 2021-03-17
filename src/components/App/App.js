@@ -1,12 +1,16 @@
 // @ts-ignore
 import React from 'react';
-import TableWithData from '../Fetch-countries/Fetch-countries';
+import FetchCountries from '../Fetch-products/Fetch-products';
+import Form from '../Input/Input';
 
 
 const App = () => {
   return (
     <div className="app">
-      <TableWithData />
+      <div className="container">
+        <Form />
+        <FetchCountries />
+      </div>
     </div>
   );
 }

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import CountryDetail from '../CountryDetail/Country-detail';
+
+// import preloader
 import Loader from '../Loader/Preloader';
+
+// import axios
+import axios from "axios";
+
+// import bootstrap table
 import BootstrapTable from 'react-bootstrap-table-next';
-import cellEditFactory from 'react-bootstrap-table2-editor';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 
+// import css
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FetchCountries = () => {
     const [products, setProducts] = useState([]);
@@ -22,7 +28,7 @@ const FetchCountries = () => {
                 }
             })
             .then((res) => {
-                setProducts(res.data);
+                setProducts(res.data.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -47,17 +53,16 @@ const FetchCountries = () => {
     console.log(products)
 
 
-    const columns = [
-        {
-            dataField: 'ar_codart',
-            text: 'Product Names'
-        }, {
-            dataField: 'ar_descr',
-            text: 'Product init'
-        }];
+    const columns = [{
+        dataField: 'ar_codart',
+        text: 'Product Names'
+    }, {
+        dataField: 'ar_descr',
+        text: 'Product init'
+    }];
 
     return (
-        <BootstrapTable keyField="ar_codart" data={products} columns={columns} cellEdit={cellEditFactory({ mode: 'click' })} pagination={paginationFactory()} />
+        <BootstrapTable keyField="ar_codart" data={products} columns={columns} pagination={paginationFactory()} />
     );
 }
 
