@@ -2,21 +2,13 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap';
 
-const Input = (props) => {
-    const { onSearch } = props;
+const Input = () => {
 
     const [searchText, setSearchText] = useState('');
 
-    const handleInput = (event) => {
-        const text = event.target.value;
-        setSearchText(text)
-    }
 
-    const handleEnterKeyPressed = (event) => {
-        if (event.key === 'Enter') {
-            onSearch(setSearchText)
-        }
-    }
+
+
 
     return (
         <Form>
@@ -26,7 +18,7 @@ const Input = (props) => {
                     type="text"
                     value={searchText}
                     placeholder="Insert search keywords"
-                    onKeyPress={handleEnterKeyPressed} />
+                />
             </Form.Group>
         </Form>
     )

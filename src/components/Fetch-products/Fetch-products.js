@@ -9,9 +9,13 @@ import axios from "axios";
 // import bootstrap table
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 // import css
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const { SearchBar } = Search;
+
 
 const FetchCountries = () => {
     const [products, setProducts] = useState([]);
@@ -36,14 +40,6 @@ const FetchCountries = () => {
             });
     }, []);
 
-    // useEffect(() => {
-    //     setFilteredCountries(
-    //         countries.filter((country) =>
-    //             country.name.toLowerCase().includes(search.toLowerCase())
-    //         )
-    //     );
-    // }, [search, countries]);
-
     if (loading) {
         return (
             <Loader />
@@ -51,7 +47,6 @@ const FetchCountries = () => {
     }
 
     console.log(products)
-
 
     const columns = [{
         dataField: 'ar_codart',
@@ -62,7 +57,29 @@ const FetchCountries = () => {
     }];
 
     return (
-        <BootstrapTable keyField="ar_codart" data={products} columns={columns} pagination={paginationFactory()} />
+        <>
+            <ToolkitProvider
+                keyField="id"
+                data={products}
+                columns={columns}
+                search
+            >
+                {
+                    props => (
+                        <div>
+                            <h3>Input something at below input field:</h3>
+                            <SearchBar {...props.searchProps} />
+                            <hr />
+                            <BootstrapTable
+                                {...props.baseProps}
+                                keyField="ar_codart" data={products} columns={columns} pagination={paginationFactory()}
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
+            {/* <BootstrapTable keyField="ar_codart" data={products} columns={columns} pagination={paginationFactory()} /> */}
+        </>
     );
 }
 
