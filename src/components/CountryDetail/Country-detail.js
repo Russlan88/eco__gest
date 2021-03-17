@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import { Img, GridItem } from './Styled__country-detail';
 
