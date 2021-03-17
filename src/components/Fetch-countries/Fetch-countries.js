@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CountryDetail from '../CountryDetail/Country-detail';
+// import CountryDetail from '../CountryDetail/Country-detail';
 import Loader from '../Loader/Preloader';
-import { Grid } from './Styled__fetch-countries';
+import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+
 
 const FetchCountries = () => {
     const [countries, setCountries] = useState([]);
@@ -37,20 +39,20 @@ const FetchCountries = () => {
         );
     }
 
+    const columns = [{
+        dataField: "id",
+        text: "ID"
+    },
+    {
+        dataField: 'name',
+        text: 'Product Names'
+    }, {
+        dataField: 'alpha3Code',
+        text: 'Product init'
+    }];
+
     return (
-        <div className="container">
-            <h1>Countries Lists</h1>
-            <input
-                type="text"
-                placeholder="Search Countries"
-                onChange={(e) => setSearch(e.target.value)}
-            />
-            <Grid>
-                {filteredCountries.map((country, idx) => (
-                    <CountryDetail key={idx} {...country} />
-                ))}
-            </Grid>
-        </div>
+        <BootstrapTable keyField="alpha3Code" data={countries} columns={columns} cellEdit={cellEditFactory({ mode: 'click' })} />
     );
 }
 
