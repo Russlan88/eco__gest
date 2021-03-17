@@ -1,12 +1,21 @@
 // @ts-ignore
-import React from 'react';
-import TableWithData from '../Fetch-countries/Fetch-countries';
+import React, { useState } from 'react';
+import FetchCountries from '../Fetch-products/Fetch-products';
+import Input from '../Input/Input';
+
+// import axios
+import axios from "axios";
 
 
 const App = () => {
+
+
   return (
     <div className="app">
-      <TableWithData />
+      <div className="container">
+        {/* <Input /> */}
+        <FetchCountries />
+      </div>
     </div>
   );
 }
