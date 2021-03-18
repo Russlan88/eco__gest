@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-// import preloader
 import Loader from '../Loader/Preloader';
-
-// import axios
 import axios from "axios";
-
-// import bootstrap table
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
@@ -46,14 +40,21 @@ const FetchCountries = () => {
         );
     }
 
-    console.log(products)
-
     const columns = [{
         dataField: 'ar_codart',
-        text: 'Product Names'
+        text: 'Nome del prodotto'
     }, {
         dataField: 'ar_descr',
-        text: 'Product init'
+        text: 'Descrizione del prodotto',
+    }, {
+        formatter: (rowContent, row) => {
+            return (
+                <div className="d-flex align-middle justify-content-center">
+                    <input type="text" className="form-control mr-sm-8 mr-4" placeholder="Aggiungi il numero di prodotti" />
+                    <a href="#" className="btn btn-info col-sm-4">Aggiungi la quantit&agrave;</a>
+                </div>
+            )
+        }
     }];
 
     return (
@@ -63,16 +64,18 @@ const FetchCountries = () => {
                 data={products}
                 columns={columns}
                 search
+
             >
                 {
+                    // @ts-ignore
                     props => (
                         <div>
-                            <h3>Input something at below input field:</h3>
                             <SearchBar {...props.searchProps} />
                             <hr />
                             <BootstrapTable
                                 {...props.baseProps}
-                                keyField="ar_codart" data={products} columns={columns} pagination={paginationFactory()}
+                                // @ts-ignore
+                                keyField="ar_codart" data={products} columns={columns} hover pagination={paginationFactory()}
                             />
                         </div>
                     )
